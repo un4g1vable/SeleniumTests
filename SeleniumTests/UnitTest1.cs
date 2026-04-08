@@ -23,7 +23,7 @@ public class Tests // объявление класса с тестами
     [SetUp]
     public void Setup() // метод подготовки к тесту
     {
-        // Загружаем .env файл, если он существует (для локальной разработки) p.s. в ходе проб и ошибок выяснил, что рабочая директория = папка с bin/Debug/netX.X/
+        // Загружаем .env файл, если он существует (для локальной разработки) p.s. в ходе проб и ошибок выяснил, что рабочая директория = папка bin/Debug/netX.X/
         var EnvPath = Path.Combine(Directory.GetCurrentDirectory(), ".env");
         if (File.Exists(EnvPath))
             Env.Load(EnvPath);
@@ -45,7 +45,7 @@ public class Tests // объявление класса с тестами
     {
         
         Driver.Navigate().GoToUrl(BaseURL); // переход на страницу
-
+        // тянем креды из .env
         var Login = Environment.GetEnvironmentVariable("TEST_LOGIN");
         var Password = Environment.GetEnvironmentVariable("TEST_PASSWORD");
 
@@ -72,7 +72,7 @@ public class Tests // объявление класса с тестами
     public void AuthorizationTest()
     {
         Authorize();
-        Assert.That(Driver.Title, Does.Contain("Новости"), "Ошибка авторизации"); // проверка, что открыта нужная страница
+        Assert.That(Driver.Title, Does.Contain("Новости"), "Нам не удалось успешно авторизоваться, поскольку мы не оказались на вкладке Новости"); // проверка, что открыта нужная страница после авторизации
     }
 
     [Test]
